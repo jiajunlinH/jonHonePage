@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -25,8 +26,18 @@ public class HomePageController {
 
     @GetMapping(value = "/")
     public String homePage(Model model){
+        Double dateSelect = Math.ceil(getClacDate());
         model.addAttribute("nowDay", getClacDate());
-        return "/homePage";
+        if(dateSelect==100){
+            return "/homePage";
+        }else{
+            return "/clock/electronicClock";
+        }
+    }
+
+    @GetMapping(value = "/clock")
+    public String clock(Model model){
+        return "/clock/clock";
     }
 
     private Double getClacDate(){
